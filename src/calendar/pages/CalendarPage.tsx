@@ -1,26 +1,13 @@
 import { Calendar, View } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Navbar } from '../components/Navbar';
-import { addHours } from 'date-fns';
 import { localizer, getMessagesEs } from '../../helpers';
-import { CalendarEvent } from '../components/CalendarEvent';
 import { useState } from 'react';
-import { CalendarModal } from '../components/CalendarModal';
+import { CalendarModal, FabAddNew, CalendarEvent } from '../';
+import { useCalendarStore, useUiStore } from '../../hooks';
+import { Events } from '../interfaces/events.interfaces';
 
-
-export interface Events {
-  title: string,
-  notes: string,
-  start: Date,
-  end: Date,
-  bgColor: string,
-  user: {
-    _id: string,
-    name: string
-  }
-}
-
-const events: Events[] = [
+/* const events: Events[] = [
   {
     title: 'Cumpleaños del Jefe',
     notes: 'Hay que comprar el pastel',
@@ -32,19 +19,21 @@ const events: Events[] = [
       name: 'Juan'
     }
   }
-]
+] */
 
 
 export const CalendarPage = () => {
 
 
+  const { events, setActiveEvent } = useCalendarStore();
+  const { openDateModal } = useUiStore();
   const [lastView, setLastView] = useState<View>((localStorage.getItem('lastView') as View || 'month'));
 
   const eventStyleGetter = (event: Events,
     start: Date,
     end: Date,
     isSelected: boolean,) => {
-    console.log({event, start, end, isSelected});
+    //console.log({event, start, end, isSelected});
     const style = {
       backgroundColor: '#8f6969',
       borderRadius: '0px',
@@ -57,11 +46,11 @@ export const CalendarPage = () => {
   }
 
   const onDoubleClick = ( event: Events) => {
-    console.log({ doubleClick: event});
+    openDateModal();
   }
 
   const onSelect = ( event: Events) => {
-    console.log({ click: event});
+    setActiveEvent(event)
   }
 
   const onViewChanged = ( event: View) => {
@@ -89,6 +78,7 @@ export const CalendarPage = () => {
         onView={onViewChanged}
       />
       <CalendarModal />
+      <FabAddNew />
     </>
   )
 }
