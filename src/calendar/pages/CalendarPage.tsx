@@ -7,23 +7,7 @@ import { CalendarModal, FabAddNew, CalendarEvent, FabDelete } from '../';
 import { useCalendarStore, useUiStore } from '../../hooks';
 import { Events } from '../interfaces/events.interfaces';
 
-/* const events: Events[] = [
-  {
-    title: 'Cumpleaños del Jefe',
-    notes: 'Hay que comprar el pastel',
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: '#8f6969',
-    user: {
-      _id: '1234567890',
-      name: 'Juan'
-    }
-  }
-] */
-
-
 export const CalendarPage = () => {
-
 
   const { events, hasEventSelected, setActiveEvent } = useCalendarStore();
   const { openDateModal } = useUiStore();
