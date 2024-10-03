@@ -53,8 +53,6 @@ export const CalendarModal = () => {
   }, [activeEvent])
   
   const onInputChange = ( { target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
-
-    console.log( event );
     setFormValues( () => {
       return {
         ...formValues,
@@ -66,7 +64,7 @@ export const CalendarModal = () => {
   type Changing = 'start' | 'end';
 
   const onDateChange = ( event: Date, changing: Changing ) => {
-    console.log( changing );
+
     setFormValues( () => {
       return {
         ...formValues,
